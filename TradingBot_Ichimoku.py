@@ -7,6 +7,7 @@ import time
 import math
 import getpass
 
+
 def check_password():
     password = getpass.getpass("Enter password: ")
     # Perform password verification logic here
@@ -14,6 +15,7 @@ def check_password():
         print("Access granted")
     else:
         print("Access denied")
+
 
 class BinanceDataFetcher:
     def __init__(self, api_key, api_secret):
@@ -339,6 +341,7 @@ class BinancePositionChecker:
             print("-----------------------------")
 
             return False
+
 
 check_password()
 symbol = "adausdt"  # input("Enter the trading pair symbol (e.g., BTCUSDT): ")
