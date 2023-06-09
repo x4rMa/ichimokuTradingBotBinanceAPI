@@ -6,15 +6,22 @@ import pandas as pd
 import time
 import math
 import getpass
-
+import sys
 
 def check_password():
-    password = getpass.getpass("Enter password: ")
-    # Perform password verification logic here
-    if password == "Ali@19961376":
-        print("Access granted")
+    max_attempts = 2
+    for attempt in range(1, max_attempts + 1):
+        password = getpass.getpass("Enter password: ")
+        # Perform password verification logic here
+        if password == "Ali@19961376":
+            print("Access granted")
+            break
+        else:
+            print(f"Access denied. Attempts remaining: {max_attempts - attempt}")
     else:
-        print("Access denied")
+        print("Maximum number of attempts reached. Aborting.")
+        sys.exit(1)  # Exit with a non-zero status code
+
 
 
 class BinanceDataFetcher:
