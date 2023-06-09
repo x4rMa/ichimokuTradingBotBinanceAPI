@@ -5,7 +5,15 @@ from binance.client import Client
 import pandas as pd
 import time
 import math
+import getpass
 
+def check_password():
+    password = getpass.getpass("Enter password: ")
+    # Perform password verification logic here
+    if password == "Ali@19961376":
+        print("Access granted")
+    else:
+        print("Access denied")
 
 class BinanceDataFetcher:
     def __init__(self, api_key, api_secret):
@@ -332,8 +340,7 @@ class BinancePositionChecker:
 
             return False
 
-
-# Prompt the user for input
+check_password()
 symbol = "adausdt"  # input("Enter the trading pair symbol (e.g., BTCUSDT): ")
 amount_usd = 5.5  # float(input("Enter the amount in USD: "))
 leverage = 1  # int(input("Enter the desired leverage: "))
