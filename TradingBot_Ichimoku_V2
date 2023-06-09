@@ -1,4 +1,5 @@
 from datetime import datetime
+import ccxt
 import datetime
 from binance.client import Client
 import pandas as pd
@@ -422,6 +423,22 @@ risk_reward = 2  # int(input("Enter the desired risk reward ratio: "))
 
 symbol = symbol.upper()
 interval = f"{timeframe}m"  # Assuming minutes
+
+symbol = symbol.upper()
+interval = f"{timeframe}m"  # Assuming minutes
+
+# Set the recvWindow value
+recv_window = 60000
+
+# Create an instance of the exchange
+exchange = ccxt.binance({
+    "apiKey": api_key,
+    "secret": api_secret,
+    "options": {
+        "recvWindow": recv_window
+    }
+})
+
 
 # Create the BinanceDataFetcher instance
 fetcher = BinanceDataFetcher(api_key, api_secret)
