@@ -8,7 +8,6 @@ import math
 import getpass
 import sys
 
-
 def check_password():
     max_attempts = 2
     for attempt in range(1, max_attempts + 1):
@@ -18,8 +17,7 @@ def check_password():
             print("Access granted")
             break
         else:
-            print(
-                f"Access denied. Attempts remaining: {max_attempts - attempt}")
+            print(f"Access denied. Attempts remaining: {max_attempts - attempt}")
     else:
         print("Maximum number of attempts reached. Aborting.")
         sys.exit(1)  # Exit with a non-zero status code
