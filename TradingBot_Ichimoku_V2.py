@@ -8,6 +8,7 @@ import math
 import getpass
 import sys
 
+
 def check_password():
     max_attempts = 2
     for attempt in range(1, max_attempts + 1):
@@ -17,7 +18,8 @@ def check_password():
             print("Access granted")
             break
         else:
-            print(f"Access denied. Attempts remaining: {max_attempts - attempt}")
+            print(
+                f"Access denied. Attempts remaining: {max_attempts - attempt}")
     else:
         print("Maximum number of attempts reached. Aborting.")
         sys.exit(1)  # Exit with a non-zero status code
@@ -188,7 +190,7 @@ class IchimokuSignalGenerator:
         return senkou_span_b_52
 
     def determine_signal(self, tenkan_sen, kijun_sen, senkou_span_a, senkou_span_b, senkou_span_a_26, senkou_span_b_26, senkou_span_a_52, senkou_span_b_52, current_price, current_price_open, lagging_span_26_periods_ago, percentage_difference):
-        if percentage_difference <= 0.003:
+        if percentage_difference <= 0.003 or percentage_difference >= 0.025:
             signal = "No signal"
         else:
             if (
