@@ -512,9 +512,7 @@ while True:
                 side = "BUY"
             elif signal == "Sell":
                 side = "SELL"
-            else:  # Signal is "No signal"
-                # print("No signal. Skipping order placement.")
-                # print()
+            else:
                 continue  # Skip to the next iteration of the loop
 
             TPSLBase = senkou_span_b_26
