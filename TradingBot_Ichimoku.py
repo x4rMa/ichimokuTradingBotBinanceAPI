@@ -92,8 +92,12 @@ class IchimokuSignalGenerator:
         lagging_span_26_periods_ago = closing_prices[0] if len(
             closing_prices) >= 26 else None
 
+        pd = senkou_span_b_26
+        if senkou_span_b_26 <= kijun_sen:
+            pd = kijun_sen
+
         percentage_difference = abs(
-            (current_price - senkou_span_b_26) / senkou_span_b_26) * 100
+            (current_price - pd) / pd) * 100
 
         signal = self.determine_signal(tenkan_sen, kijun_sen, senkou_span_a, senkou_span_b, senkou_span_a_26, senkou_span_b_26,
                                        senkou_span_a_52, senkou_span_b_52, current_price, current_price_open, lagging_span_26_periods_ago, percentage_difference)
@@ -353,7 +357,7 @@ class BinancePositionChecker:
 
 
 check_password()
-symbol = "adausdt"  # input("Enter the trading pair symbol (e.g., BTCUSDT): ")
+symbol = "agixusdt"  # input("Enter the trading pair symbol (e.g., BTCUSDT): ")
 amount_usd = 5.5  # float(input("Enter the amount in USD: "))
 leverage = 1  # int(input("Enter the desired leverage: "))
 timeframe = 15  # input("Enter the desired timeframe (e.g., 15m, 1h, 4h): ")
