@@ -528,7 +528,7 @@ while True:
                     TPSLBase * (1 + (risk_reward + 1) * TPSLBase_percentage))
             else:
                 # For Sell signal
-                stop_loss = float(senkou_span_b_26)
+                stop_loss = float(TPSLBase)
                 take_profit = float(
                     TPSLBase * (1 - (risk_reward + 1) * TPSLBase_percentage))
 
