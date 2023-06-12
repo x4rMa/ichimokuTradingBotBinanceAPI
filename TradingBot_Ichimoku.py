@@ -30,7 +30,7 @@ class BinanceDataFetcher:
         self.client = Client(api_key, api_secret)
 
     def fetch_candlestick_data(self, symbol, interval):
-        time.sleep(45)
+        time.sleep(280)
 
         candles = self.client.futures_klines(
             symbol=symbol,
@@ -103,22 +103,22 @@ class IchimokuSignalGenerator:
                                        senkou_span_a_52, senkou_span_b_52, current_price, current_price_open, lagging_span_26_periods_ago, percentage_difference)
 
         print("Signal:", signal)
-        # print("percentage Difference:", percentage_difference)
-        # print("Current Price Open:", current_price_open)
-        # print("Current Price:", current_price)
-        # print("Lagging Span 26 periods ago:", lagging_span_26_periods_ago)
-        # print("Tenkan-sen:", tenkan_sen)
-        # print("Kijun-sen:", kijun_sen)
-        # print("Senkou Span A:", senkou_span_a)
-        # print("Senkou Span B:", senkou_span_b)
-        # print("Tenkan-sen 26 periods ago:", tenkan_sen_26_periods_ago)
-        # print("Kijun-sen 26 periods ago:", kijun_sen_26_periods_ago)
-        # print("Tenkan-sen 52 periods ago:", tenkan_sen_52_periods_ago)
-        # print("Kijun-sen 52 periods ago:", kijun_sen_52_periods_ago)
-        # print("Senkou Span A 26 periods ago:", senkou_span_a_26)
-        # print("Senkou Span A 52 periods ago:", senkou_span_a_52)
-        # print("Senkou Span B 26 periods ago:", senkou_span_b_26)
-        # print("Senkou Span B 52 periods ago:", senkou_span_b_52)
+        print("percentage Difference:", percentage_difference)
+        print("Current Price Open:", current_price_open)
+        print("Current Price:", current_price)
+        print("Lagging Span 26 periods ago:", lagging_span_26_periods_ago)
+        print("Tenkan-sen:", tenkan_sen)
+        print("Kijun-sen:", kijun_sen)
+        print("Senkou Span A:", senkou_span_a)
+        print("Senkou Span B:", senkou_span_b)
+        print("Tenkan-sen 26 periods ago:", tenkan_sen_26_periods_ago)
+        print("Kijun-sen 26 periods ago:", kijun_sen_26_periods_ago)
+        print("Tenkan-sen 52 periods ago:", tenkan_sen_52_periods_ago)
+        print("Kijun-sen 52 periods ago:", kijun_sen_52_periods_ago)
+        print("Senkou Span A 26 periods ago:", senkou_span_a_26)
+        print("Senkou Span A 52 periods ago:", senkou_span_a_52)
+        print("Senkou Span B 26 periods ago:", senkou_span_b_26)
+        print("Senkou Span B 52 periods ago:", senkou_span_b_52)
         print("-----------------------------")
 
         return (high_prices, low_prices, closing_prices, opening_prices, tenkan_sen, kijun_sen, tenkan_sen_26_periods_ago,
@@ -357,15 +357,15 @@ class BinancePositionChecker:
 
 
 check_password()
-symbol = "agixusdt"  # input("Enter the trading pair symbol (e.g., BTCUSDT): ")
+symbol = input("Enter the trading pair symbol (e.g., BTCUSDT): ")
 amount_usd = 5.5  # float(input("Enter the amount in USD: "))
 leverage = 1  # int(input("Enter the desired leverage: "))
-timeframe = 15  # input("Enter the desired timeframe (e.g., 15m, 1h, 4h): ")
+timeframe = 5  # input("Enter the desired timeframe (e.g., 15m, 1h, 4h): ")
 # input("Enter your Binance API key: ")
 api_key = "TMgGrB5LgmmcZGLJ1hKd7SHuai03x7GTG1iPIL4WNf0Skq8saiwryUYOvizYP3Ip"
 # input("Enter your Binance API secret: ")
 api_secret = "9Y4KWq2mF1b26gJ5aEFVKt2VTGpqtq0MX5hFTbq2HOnkfFrjrjzoSVPuHAIYQrlk"
-risk_reward = 2  # int(input("Enter the desired risk reward ratio: "))
+risk_reward = 1.5  # int(input("Enter the desired risk reward ratio: "))
 
 symbol = symbol.upper()
 interval = f"{timeframe}m"  # Assuming minutes
