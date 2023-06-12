@@ -208,7 +208,7 @@ class IchimokuSignalGenerator:
                 current_price > senkou_span_b_26
             ):
                 signal = "Buy"
-            if (
+            elif (
                 current_price < current_price_open and
                 tenkan_sen < kijun_sen and
                 senkou_span_a < senkou_span_b and
