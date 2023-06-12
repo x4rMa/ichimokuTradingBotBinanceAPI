@@ -438,18 +438,27 @@ while True:
             else:
                 continue  # Skip to the next iteration of the loop
 
-            TPSLBase = senkou_span_b_26
-            if senkou_span_b_26 <= kijun_sen:
-                TPSLBase = kijun_sen
-            # Calculate stop loss and take profit levels
-            TPSLBase_percentage = abs(current_price - TPSLBase) / abs(TPSLBase)
-
             if signal == "Buy":
+                TPSLBase = senkou_span_b_26
+                if senkou_span_b_26 >= kijun_sen:
+                    TPSLBase = kijun_sen
+
+                # Calculate stop loss and take profit levels
+                TPSLBase_percentage = abs(
+                    current_price - TPSLBase) / abs(TPSLBase)
                 # For Buy signal
                 stop_loss = float(TPSLBase)
                 take_profit = float(
                     TPSLBase * (1 + (risk_reward + 1) * TPSLBase_percentage))
             else:
+                TPSLBase = senkou_span_b_26
+
+                if senkou_span_b_26 <= kijun_sen:
+                    TPSLBase = kijun_sen
+
+                # Calculate stop loss and take profit levels
+                TPSLBase_percentage = abs(
+                    current_price - TPSLBase) / abs(TPSLBase)
                 # For Sell signal
                 stop_loss = float(TPSLBase)
                 take_profit = float(
