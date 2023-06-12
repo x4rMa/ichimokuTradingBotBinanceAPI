@@ -49,6 +49,7 @@ class BinanceDataFetcher:
         # low_price = previous_candle[3]
         # close_price = previous_candle[4]
 
+        print("-----------------------------")
         print("Open Time:", open_time)
         # print("Close Time:  ", close_time)
         # print("Open Price:  ", open_price)
