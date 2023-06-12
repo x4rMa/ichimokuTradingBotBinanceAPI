@@ -30,7 +30,7 @@ class BinanceDataFetcher:
         self.client = Client(api_key, api_secret)
 
     def fetch_candlestick_data(self, symbol, interval):
-        time.sleep(280)
+        time.sleep(160)
 
         candles = self.client.futures_klines(
             symbol=symbol,
