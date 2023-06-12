@@ -94,8 +94,6 @@ class IchimokuSignalGenerator:
             closing_prices) >= 26 else None
 
         pd = senkou_span_b_26
-        if senkou_span_b_26 <= kijun_sen:
-            pd = kijun_sen
 
         percentage_difference = abs(
             (current_price - pd) / pd) * 100
