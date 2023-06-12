@@ -30,7 +30,7 @@ class BinanceDataFetcher:
         self.client = Client(api_key, api_secret)
 
     def fetch_candlestick_data(self, symbol, interval):
-        time.sleep(160)
+        time.sleep(450)
 
         candles = self.client.futures_klines(
             symbol=symbol,
@@ -194,7 +194,7 @@ class IchimokuSignalGenerator:
         return senkou_span_b_52
 
     def determine_signal(self, tenkan_sen, kijun_sen, senkou_span_a, senkou_span_b, senkou_span_a_26, senkou_span_b_26, senkou_span_a_52, senkou_span_b_52, current_price, current_price_open, lagging_span_26_periods_ago, percentage_difference):
-        if percentage_difference <= 0.3 or percentage_difference >= 1.2:
+        if percentage_difference <= 0.3 or percentage_difference >= 3:
             signal = "No signal"
         else:
             if (
@@ -437,7 +437,7 @@ check_password()
 symbol = input("Enter the trading pair symbol (e.g., BTCUSDT): ")
 amount_usd = 5.5  # float(input("Enter the amount in USD: "))
 leverage = 1  # int(input("Enter the desired leverage: "))
-timeframe = 3  # input("Enter the desired timeframe (e.g., 15m, 1h, 4h): ")
+timeframe = 15  # input("Enter the desired timeframe (e.g., 15m, 1h, 4h): ")
 # input("Enter your Binance API key: ")
 api_key = "TMgGrB5LgmmcZGLJ1hKd7SHuai03x7GTG1iPIL4WNf0Skq8saiwryUYOvizYP3Ip"
 # input("Enter your Binance API secret: ")
