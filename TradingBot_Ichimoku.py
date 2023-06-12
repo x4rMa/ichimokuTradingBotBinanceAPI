@@ -196,7 +196,7 @@ class IchimokuSignalGenerator:
         return senkou_span_b_52
 
     def determine_signal(self, tenkan_sen, kijun_sen, senkou_span_a, senkou_span_b, senkou_span_a_26, senkou_span_b_26, senkou_span_a_52, senkou_span_b_52, current_price, current_price_open, lagging_span_26_periods_ago, percentage_difference):
-        if percentage_difference <= 0.3 or percentage_difference >= 2.5:
+        if percentage_difference <= 0.3 or percentage_difference >= 1.5:
             signal = "No signal"
         else:
             if (
