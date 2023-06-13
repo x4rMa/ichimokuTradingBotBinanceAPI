@@ -90,7 +90,7 @@ class IchimokuSignalGenerator:
 
         current_price = closing_prices[0] if closing_prices else None
         current_price_open = opening_prices[0] if opening_prices else None
-        pcurrent_price_open = closing_prices[1] if opening_prices else None
+        pcurrent_price_open = opening_prices[1] if opening_prices else None
         lagging_span_26_periods_ago = closing_prices[0] if len(
             closing_prices) >= 26 else None
 
