@@ -369,7 +369,7 @@ class BinancePositionChecker:
 symbol = input("Enter the trading pair symbol (e.g., BTCUSDT): ")
 amount_usd = 5.5  # float(input("Enter the amount in USD: "))
 leverage = 1  # int(input("Enter the desired leverage: "))
-timeframe = 15  # input("Enter the desired timeframe (e.g., 15m, 1h, 4h): ")
+timeframe = 3  # input("Enter the desired timeframe (e.g., 15m, 1h, 4h): ")
 # input("Enter your Binance API key: ")
 api_key = "TMgGrB5LgmmcZGLJ1hKd7SHuai03x7GTG1iPIL4WNf0Skq8saiwryUYOvizYP3Ip"
 # input("Enter your Binance API secret: ")
