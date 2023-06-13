@@ -374,7 +374,7 @@ timeframe = 3  # input("Enter the desired timeframe (e.g., 15m, 1h, 4h): ")
 api_key = "TMgGrB5LgmmcZGLJ1hKd7SHuai03x7GTG1iPIL4WNf0Skq8saiwryUYOvizYP3Ip"
 # input("Enter your Binance API secret: ")
 api_secret = "9Y4KWq2mF1b26gJ5aEFVKt2VTGpqtq0MX5hFTbq2HOnkfFrjrjzoSVPuHAIYQrlk"
-risk_reward = 1.5  # int(input("Enter the desired risk reward ratio: "))
+risk_reward = 1.8  # int(input("Enter the desired risk reward ratio: "))
 
 symbol = symbol.upper()
 interval = f"{timeframe}m"  # Assuming minutes
