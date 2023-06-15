@@ -90,7 +90,6 @@ class IchimokuSignalGenerator:
 
         current_price = closing_prices[0] if closing_prices else None
         current_price_open = opening_prices[0] if opening_prices else None
-        pcurrent_price_open = opening_prices[1] if opening_prices else None
         lagging_span_26_periods_ago = closing_prices[0] if len(
             closing_prices) >= 26 else None
 
@@ -100,12 +99,11 @@ class IchimokuSignalGenerator:
             (current_price - pd) / pd) * 100
 
         signal = self.determine_signal(tenkan_sen, kijun_sen, senkou_span_a, senkou_span_b, senkou_span_a_26, senkou_span_b_26,
-                                       senkou_span_a_52, senkou_span_b_52, current_price, current_price_open, pcurrent_price_open, lagging_span_26_periods_ago, percentage_difference)
+                                       senkou_span_a_52, senkou_span_b_52, current_price, current_price_open, lagging_span_26_periods_ago, percentage_difference)
 
         print("Signal:", signal)
         print("percentage Difference:", percentage_difference)
         print("Current Price Open:", current_price_open)
-        print("Previous Price Open:", pcurrent_price_open)
         print("Current Price:", current_price)
         print("Lagging Span 26 periods ago:", lagging_span_26_periods_ago)
         print("Tenkan-sen:", tenkan_sen)
@@ -195,16 +193,12 @@ class IchimokuSignalGenerator:
         senkou_span_b_52 = ((period52_high + period52_low) / 2)
         return senkou_span_b_52
 
-    def determine_signal(self, tenkan_sen, kijun_sen, senkou_span_a, senkou_span_b, senkou_span_a_26, senkou_span_b_26, senkou_span_a_52, senkou_span_b_52, current_price, current_price_open, pcurrent_price_open, lagging_span_26_periods_ago, percentage_difference):
-        if percentage_difference <= 0.3:
+    def determine_signal(self, tenkan_sen, kijun_sen, senkou_span_a, senkou_span_b, senkou_span_a_26, senkou_span_b_26, senkou_span_a_52, senkou_span_b_52, current_price, current_price_open, lagging_span_26_periods_ago, percentage_difference):
+        if percentage_difference <= 0.2 or percentage_difference >= 2:
             signal = "No signal"
         else:
             if (
                 current_price > current_price_open and
-                (current_price_open < senkou_span_a_26 or
-                 pcurrent_price_open < senkou_span_a_26 or
-                 current_price_open < senkou_span_b_26 or
-                 pcurrent_price_open < senkou_span_b_26) and
                 tenkan_sen > kijun_sen and
                 senkou_span_a > senkou_span_b and
                 lagging_span_26_periods_ago > senkou_span_a_52 and
@@ -215,10 +209,6 @@ class IchimokuSignalGenerator:
                 signal = "Buy"
             elif (
                 current_price < current_price_open and
-                (current_price_open > senkou_span_a_26 or
-                 pcurrent_price_open > senkou_span_a_26 or
-                 current_price_open > senkou_span_b_26 or
-                 pcurrent_price_open > senkou_span_b_26) and
                 tenkan_sen < kijun_sen and
                 senkou_span_a < senkou_span_b and
                 lagging_span_26_periods_ago < senkou_span_a_52 and
@@ -374,7 +364,7 @@ timeframe = 3  # input("Enter the desired timeframe (e.g., 15m, 1h, 4h): ")
 api_key = "TMgGrB5LgmmcZGLJ1hKd7SHuai03x7GTG1iPIL4WNf0Skq8saiwryUYOvizYP3Ip"
 # input("Enter your Binance API secret: ")
 api_secret = "9Y4KWq2mF1b26gJ5aEFVKt2VTGpqtq0MX5hFTbq2HOnkfFrjrjzoSVPuHAIYQrlk"
-risk_reward = 1.8  # int(input("Enter the desired risk reward ratio: "))
+risk_reward = 2  # int(input("Enter the desired risk reward ratio: "))
 
 symbol = symbol.upper()
 interval = f"{timeframe}m"  # Assuming minutes
