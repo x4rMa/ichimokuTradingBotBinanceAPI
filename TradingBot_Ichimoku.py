@@ -13,8 +13,7 @@ def check_password():
     max_attempts = 5
     for attempt in range(1, max_attempts + 1):
         password = getpass.getpass("Enter password: ")
-        # Perform password verification logic here
-        if password == "A":
+        if password == "github.com/afshmari":
             print("Access granted")
             break
         else:
@@ -22,7 +21,7 @@ def check_password():
                 f"Access denied. Attempts remaining: {max_attempts - attempt}")
     else:
         print("Maximum number of attempts reached. Aborting.")
-        sys.exit(1)  # Exit with a non-zero status code
+        sys.exit(1) 
 
 
 class BinanceDataFetcher:
@@ -255,24 +254,19 @@ class BinanceFuturesOrderPlacer:
             return None
 
     def format_price(self, price, decimal_places):
-        # Format the price with the reduced decimal places
         formatted_price = f"{price:.{decimal_places}f}"
         return formatted_price
 
     def place_order(self, symbol, quantity, side, stop_loss, take_profit, leverage):
-        # Adjust leverage
         result = self.adjust_leverage(symbol, leverage)
         if result is None:
             print("Failed to adjust leverage. Aborting order placement.")
             return None
 
-        # Get the number of decimal places for the symbol
         decimal_places = self.get_decimal_places(symbol)
-        # Format stop loss and take profit values based on decimal places
         formatted_stop_loss = self.format_price(stop_loss, decimal_places)
         formatted_take_profit = self.format_price(take_profit, decimal_places)
 
-        # Place the order
         order_params = {
             "symbol": symbol,
             "side": side,
@@ -284,7 +278,6 @@ class BinanceFuturesOrderPlacer:
             order = self.client.futures_create_order(**order_params)
             print("Market order placed")
 
-            # Place stop loss order
             stop_loss_order_params = {
                 "symbol": symbol,
                 "side": Client.SIDE_SELL if side == Client.SIDE_BUY else Client.SIDE_BUY,
@@ -297,7 +290,6 @@ class BinanceFuturesOrderPlacer:
                 **stop_loss_order_params)
             print("Stop loss order placed")
 
-            # Place take profit order
             take_profit_order_params = {
                 "symbol": symbol,
                 "side": Client.SIDE_SELL if side == Client.SIDE_BUY else Client.SIDE_BUY,
@@ -311,7 +303,6 @@ class BinanceFuturesOrderPlacer:
             print("Take profit order placed")
 
             while True:
-                # Check the status of orders
                 stop_loss_order = self.client.futures_get_order(
                     symbol=symbol, orderId=stop_loss_order["orderId"])
                 take_profit_order = self.client.futures_get_order(
@@ -328,8 +319,7 @@ class BinanceFuturesOrderPlacer:
                         symbol=symbol, orderId=stop_loss_order["orderId"])
                     break
 
-                time.sleep(15)  # Delay for 15 seconds
-
+                time.sleep(15) 
             return order
         except Exception as e:
             print("An error occurred while placing the order:", str(e))
@@ -355,24 +345,19 @@ class BinancePositionChecker:
             return False
 
 
-# check_password()
+check_password()
 symbol = input("Enter the trading pair symbol (e.g., BTCUSDT): ")
-amount_usd = 5.5  # float(input("Enter the amount in USD: "))
-leverage = 1  # int(input("Enter the desired leverage: "))
-timeframe = 3  # input("Enter the desired timeframe (e.g., 15m, 1h, 4h): ")
-# input("Enter your Binance API key: ")
-api_key = "TMgGrB5LgmmcZGLJ1hKd7SHuai03x7GTG1iPIL4WNf0Skq8saiwryUYOvizYP3Ip"
-# input("Enter your Binance API secret: ")
-api_secret = "9Y4KWq2mF1b26gJ5aEFVKt2VTGpqtq0MX5hFTbq2HOnkfFrjrjzoSVPuHAIYQrlk"
-risk_reward = 2  # int(input("Enter the desired risk reward ratio: "))
+amount_usd = float(input("Enter the amount in USD: "))
+leverage = int(input("Enter the desired leverage: "))
+timeframe = input("Enter the desired timeframe (e.g., 15m, 1h, 4h): ")
+api_key = input("Enter your Binance API key: ")
+api_secret = input("Enter your Binance API secret: ")
+risk_reward = int(input("Enter the desired risk reward ratio: "))
 
 symbol = symbol.upper()
 interval = f"{timeframe}m"  # Assuming minutes
 
-# Set the recvWindow value
 recv_window = 60000
-
-# Create an instance of the exchange
 exchange = ccxt.binance({
     "apiKey": api_key,
     "secret": api_secret,
@@ -381,10 +366,7 @@ exchange = ccxt.binance({
     }
 })
 
-# Create the BinanceDataFetcher instance
 fetcher = BinanceDataFetcher(api_key, api_secret)
-
-# Initialize BinanceFuturesOrderPlacer with your API key and secret
 order_placer = BinanceFuturesOrderPlacer(api_key, api_secret)
 
 while True:
@@ -395,19 +377,14 @@ while True:
         print("An error occurred while fetching candlestick data:", str(e))
         print("-----------------------------")
 
-    # Create an instance of IchimokuSignalGenerator
     signal_generator = IchimokuSignalGenerator()
-    # Generate the signal
     (high_prices, low_prices, closing_prices, opening_prices, tenkan_sen, kijun_sen, tenkan_sen_26_periods_ago,
      tenkan_sen_52_periods_ago, kijun_sen_26_periods_ago, kijun_sen_52_periods_ago, senkou_span_a,
      senkou_span_a_26, senkou_span_a_52, senkou_span_b, senkou_span_b_26, senkou_span_b_52, current_price,
      current_price_open, lagging_span_26_periods_ago, percentage_difference, signal) = signal_generator.generate_signal(candles)
 
     if signal == "Buy" or signal == "Sell":
-        # Check if there is an open position for the symbol
         position_checker = BinancePositionChecker()
-
-        # Check if there is an open position for the symbol
         has_open_position = False
         try:
             has_open_position = position_checker.check_open_position(
@@ -425,42 +402,33 @@ while True:
             print("-----------------------------")
 
         if has_open_position == False:
-            # Calculate the quantity based on the amount and current price
             quantity = amount_usd / current_price
 
-            # Determine the side (Buy or Sell) based on the signal
             if signal == "Buy":
                 side = "BUY"
             elif signal == "Sell":
                 side = "SELL"
             else:
-                continue  # Skip to the next iteration of the loop
+                continue 
 
             if signal == "Buy":
                 TPSLBase = min(senkou_span_b_26, kijun_sen, senkou_span_a_26)
 
-                # Calculate stop loss and take profit levels
                 TPSLBase_percentage = abs(
                     current_price - TPSLBase) / abs(TPSLBase)
-                # For Buy signal
                 stop_loss = float(TPSLBase)
                 take_profit = float(
                     TPSLBase * (1 + (risk_reward + 1) * TPSLBase_percentage))
             else:
                 TPSLBase = max(senkou_span_b_26, kijun_sen, senkou_span_a_26)
-
-                # Calculate stop loss and take profit levels
                 TPSLBase_percentage = abs(
                     current_price - TPSLBase) / abs(TPSLBase)
-                # For Sell signal
                 stop_loss = float(TPSLBase)
                 take_profit = float(
                     TPSLBase * (1 - (risk_reward + 1) * TPSLBase_percentage))
 
-            # get the quantity
             quantity = math.floor(amount_usd / current_price)
 
-            # Place the order
             try:
                 order = order_placer.place_order(
                     symbol, quantity, side, stop_loss, take_profit, leverage)
